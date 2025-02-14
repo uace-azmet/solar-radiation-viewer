@@ -1,9 +1,5 @@
 # Shiny app to explore graphs that compare measured and theoretical-clear-sky solar radiation by AZMet station
 
-# Add code for the following
-# 
-# 'azmet-shiny-template.html': <!-- Google tag (gtag.js) -->
-
 
 # Libraries
 library(azmetr)
