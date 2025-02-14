@@ -1,4 +1,4 @@
-# Shiny app to explore graphs that compare battery voltage with weather variables by AZMet station
+# Shiny app to explore graphs that compare measured and theoretical-clear-sky solar radiation by AZMet station
 
 # Add code for the following
 # 
@@ -18,10 +18,10 @@ library(shiny)
 library(tibble)
 library(vroom)
 
-# Functions
+# Functions. Loaded automatically at app start if in `R` folder
 #source("./R/fxnABC.R", local = TRUE)
 
-# Scripts
+# Scripts. Loaded automatically at app start if in `R` folder
 #source("./R/scr##_DEF.R", local = TRUE)
 
 
@@ -34,9 +34,9 @@ ui <- htmltools::htmlTemplate(
   pageSidebar = bslib::page_sidebar(
     title = NULL,
     
-    sidebar = sidebar, # `scr04_sidebar.R`
+    sidebar = sidebar, # `scr##_sidebar.R`
     
-    navsetCardTab, # `scr05_navsetCardTab.R`
+    navsetCardTab, # `scr##_navsetCardTab.R`
     
     shiny::htmlOutput(outputId = "figureHelpText"),
     htmltools::br(),
@@ -59,8 +59,15 @@ server <- function(input, output, session) {
   
   shiny::observeEvent(input$retrieveData, {
     if (input$startDate > input$endDate) {
-      shiny::showModal(datepickerErrorModal) # `scr06_datepickerErrorModal.R`
+      shiny::showModal(datepickerErrorModal) # `scr##_datepickerErrorModal.R`
     }
+  })
+  
+  absoluteValues <- shiny::reactive({
+    fxn_absoluteValues(
+      inData = dataELT(),
+      azmetStation = input$azmetStation
+    )
   })
   
   dataELT <- shiny::eventReactive(input$retrieveData, {
@@ -89,10 +96,6 @@ server <- function(input, output, session) {
     )
   })
   
-  pageBottomText <- shiny::eventReactive(dataELT(), {
-    fxn_pageBottomText()
-  })
-  
   figureHelpText <- shiny::eventReactive(dataELT(), {
     fxn_figureHelpText(
       azmetStation = input$azmetStation,
@@ -101,11 +104,8 @@ server <- function(input, output, session) {
     )
   })
   
-  measuredValues <- shiny::reactive({
-    fxn_measuredValues(
-      inData = dataELT(),
-      azmetStation = input$azmetStation
-    )
+  pageBottomText <- shiny::eventReactive(dataELT(), {
+    fxn_pageBottomText()
   })
   
   ratioValues <- shiny::reactive({
@@ -117,9 +117,9 @@ server <- function(input, output, session) {
   
   # Outputs -----
   
+  output$absoluteValues <- plotly::renderPlotly(absoluteValues())
   output$figureHelpText <- shiny::renderUI({figureHelpText()})
   output$pageBottomText <- shiny::renderUI({pageBottomText()})
-  output$measuredValues <- plotly::renderPlotly(measuredValues())
   output$ratioValues <- plotly::renderPlotly(ratioValues())
 }
 

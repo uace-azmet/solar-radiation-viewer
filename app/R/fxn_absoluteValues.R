@@ -1,8 +1,8 @@
-#' `fxn_measuredValues.R` Generate scatterplot of measured values based on user input
+#' `fxn_absoluteValues.R` Generate scatterplot of absolute values based on user input
 #' 
-#' @param inData - daily AZMet data from `dataAZMetDataELT()`
+#' @param inData - daily AZMet data from `dataELT()`
 #' @param azmetStation - user-specified AZMet station
-#' @return `measuredValues` - scatterplot of measured values based on user input
+#' @return `absoluteValues` - scatterplot of absolute values based on user input
 
 # https://plotly-r.com/ 
 # https://plotly.com/r/reference/ 
@@ -10,7 +10,7 @@
 # https://github.com/plotly/plotly.js/blob/c1ef6911da054f3b16a7abe8fb2d56019988ba14/src/components/fx/hover.js#L1596
 
 
-fxn_measuredValues <- function(inData, azmetStation) {
+fxn_absoluteValues <- function(inData, azmetStation) {
   
   dataOtherMonths <- inData %>% 
     dplyr::filter(
@@ -23,7 +23,7 @@ fxn_measuredValues <- function(inData, azmetStation) {
     ) %>% 
     dplyr::arrange(date_doy)
   
-  measuredValues <- 
+  absoluteValues <- 
     plotly::plot_ly( # Points for `dataOtherMonths`
       data = dataOtherMonths,
       x = ~date_doy,
@@ -76,7 +76,7 @@ fxn_measuredValues <- function(inData, azmetStation) {
         color = "rgba(13, 13, 13, 1.0)", 
         width = 2
       ),
-      name = paste0("Theoretical-clear-sky values"),
+      name = paste0("Theoretical-clear-sky"),
       hoverinfo = "text",
       text = ~paste0(
         "<br><b>Theoretical value:</b>  ", sol_rad_total_clearsky, " MJ/m^2",
@@ -98,7 +98,7 @@ fxn_measuredValues <- function(inData, azmetStation) {
       scrollZoom = FALSE,
       toImageButtonOptions = list(
         format = "png", # Either png, svg, jpeg, or webp
-        filename = "AZMet-solar-radiation-viewer-measured-values",
+        filename = "AZMet-solar-radiation-viewer-absolute-values",
         height = 500,
         width = 700,
         scale = 5
@@ -145,5 +145,5 @@ fxn_measuredValues <- function(inData, azmetStation) {
       )
     )
   
-  return(measuredValues)
+  return(absoluteValues)
 }

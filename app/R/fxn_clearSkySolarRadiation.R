@@ -6,8 +6,8 @@
 #' @return `fltClearSkyRad` - clear-sky solar radiation
 
 
+# From `fxnCalculateExtraterrestrialRadiation.R` in annual ETo reports
 fxn_clearSkySolarRadiation <- function(dayOfYear, stationElevation, stationLatitude) {
-  # From `fxnCalculateExtraterrestrialRadiation.R` in annual ETo reports
   
   fltDayOfYear <- dayOfYear
   fltStationElevation  <- stationElevation

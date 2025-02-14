@@ -1,8 +1,8 @@
-#' `fxn_ratioValues.R` Generate scatterplot of measured-to-theoretical ratioValues based on user input
+#' `fxn_ratioValues.R` Generate scatterplot of ratios of measured-to-theoretical values
 #' 
-#' @param inData - daily AZMet data from `dataAZMetDataELT()`
+#' @param inData - daily AZMet data from `dataELT()`
 #' @param azmetStation - user-specified AZMet station
-#' @return `ratioValues` - scatterplot of measured values based on user input
+#' @return `ratioValues` - scatterplot of ratios of measured-to-theoretical values
 
 # https://plotly-r.com/ 
 # https://plotly.com/r/reference/ 

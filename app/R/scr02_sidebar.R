@@ -21,10 +21,9 @@ sidebar <- bslib::sidebar(
   ),
   
   shiny::helpText(
-    "Select an AZMet station, and set dates for the period of interest. Then, click or tap 'RETRIEVE DATA'."
+    "Select an AZMet station and set dates for the period of interest. Then, click or tap 'RETRIEVE DATA'."
   ),
   
-  #htmltools::br(),
   shiny::selectInput(
     inputId = "azmetStation", 
     label = "AZMet Station",

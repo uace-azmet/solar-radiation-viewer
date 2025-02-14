@@ -1,6 +1,6 @@
 navsetCardTab <- bslib::navset_card_tab(
   id = "navsetCardTab",
-  selected = "measuredValues",
+  selected = "absoluteValues",
   title = NULL,
   sidebar = NULL,
   header = NULL,
@@ -10,9 +10,9 @@ navsetCardTab <- bslib::navset_card_tab(
   #wrapper = card_body,
   
   bslib::nav_panel(
-    title = "Measured Values",
-    value = "measuredValues",
-    plotly::plotlyOutput("measuredValues")
+    title = "Absolute Values",
+    value = "absoluteValues",
+    plotly::plotlyOutput("absoluteValues")
   ),
   
   bslib::nav_panel(
