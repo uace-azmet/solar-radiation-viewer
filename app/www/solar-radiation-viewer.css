@@ -112,6 +112,12 @@
   text-shadow: none !important;
 }
 
+.download-button-help-text {
+  color: #989898; 
+  font-style: italic;
+  padding-top: 48px;
+}
+
 .figure-help-text {
   color: #989898;
   font-size: 0.9rem;
@@ -277,4 +283,17 @@
   color: #989898 !important;
   font-size: 1rem;
   text-align: left;
+}
+
+#downloadCSV {
+  margin-bottom: 48px; 
+  margin-left: 0px;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#downloadTSV {
+  margin-bottom: 48px; 
+  margin-left: 0px;
+  margin-top: 1.5rem;
 }

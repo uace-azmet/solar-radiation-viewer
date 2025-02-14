@@ -80,7 +80,8 @@ fxn_ratioValues <- function(inData, azmetStation) {
       scrollZoom = FALSE,
       toImageButtonOptions = list(
         format = "png", # Either png, svg, jpeg, or webp
-        filename = "AZMet-solar-radiation-viewer-ratio-values",
+        filename = 
+          paste0("AZMet ", azmetStation, " solar radiation viewer ratio values"),
         height = 500,
         width = 700,
         scale = 5
