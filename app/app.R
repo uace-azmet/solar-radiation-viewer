@@ -39,9 +39,9 @@ ui <- htmltools::htmlTemplate(
     navsetCardTab, # `scr##_navsetCardTab.R`
     
     shiny::htmlOutput(outputId = "figureHelpText"),
-    htmltools::br(),
-    htmltools::br(),
-    htmltools::br(),
+    shiny::htmlOutput(outputId = "downloadButtonHelpText"),
+    shiny::uiOutput(outputId = "downloadButtonCSV"),
+    shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "pageBottomText"),
     
     fillable = TRUE,
@@ -57,11 +57,15 @@ ui <- htmltools::htmlTemplate(
 
 server <- function(input, output, session) {
   
+  # Observables -----
+  
   shiny::observeEvent(input$retrieveData, {
     if (input$startDate > input$endDate) {
       shiny::showModal(datepickerErrorModal) # `scr##_datepickerErrorModal.R`
     }
   })
+  
+  # Reactives -----
   
   absoluteValues <- shiny::reactive({
     fxn_absoluteValues(
@@ -96,6 +100,10 @@ server <- function(input, output, session) {
     )
   })
   
+  downloadButtonHelpText <- shiny::eventReactive(dataELT(), {
+    fxn_downloadButtonHelpText()
+  })
+  
   figureHelpText <- shiny::eventReactive(dataELT(), {
     fxn_figureHelpText(
       azmetStation = input$azmetStation,
@@ -118,8 +126,67 @@ server <- function(input, output, session) {
   # Outputs -----
   
   output$absoluteValues <- plotly::renderPlotly(absoluteValues())
+  
+  output$downloadButtonCSV <- renderUI({
+    req(dataELT())
+    downloadButton(
+      "downloadCSV", 
+      label = "Download .csv", 
+      class = "btn btn-default btn-blue", 
+      type = "button"
+    )
+  })
+  
+  output$downloadButtonHelpText <- renderUI({
+    downloadButtonHelpText()
+  })
+  
+  output$downloadButtonTSV <- renderUI({
+    req(dataELT())
+    downloadButton(
+      "downloadTSV", 
+      label = "Download .tsv", 
+      class = "btn btn-default btn-blue", 
+      type = "button"
+    )
+  })
+  
+  output$downloadCSV <- downloadHandler(
+    filename = function() {
+      paste0(
+        "AZMet ", input$azmetStation, " solar radiation data ", input$startDate, " to ", input$endDate, ".csv"
+      )
+    },
+    
+    content = function(file) {
+      vroom::vroom_write(
+        x = dataELT(), 
+        file = file, 
+        delim = ","
+      )
+    }
+  )
+  
+  output$downloadTSV <- downloadHandler(
+    filename = function() {
+      paste0(
+        "AZMet ", input$azmetStation, " solar radiation data ", input$startDate, " to ", input$endDate, ".tsv"
+      )
+    },
+    
+    content = function(file) {
+      vroom::vroom_write(
+        x = dataELT(), 
+        file = file, 
+        delim = "\t"
+      )
+    }
+  )
+  
   output$figureHelpText <- shiny::renderUI({figureHelpText()})
+  
   output$pageBottomText <- shiny::renderUI({pageBottomText()})
+  
   output$ratioValues <- plotly::renderPlotly(ratioValues())
 }
 

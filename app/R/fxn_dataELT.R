@@ -58,7 +58,23 @@ fxn_dataELT <- function(azmetStation, startDate, endDate) {
     ) %>%
     dplyr::ungroup() %>% 
     dplyr::mutate(sol_rad_total_ratio = sol_rad_total / sol_rad_total_clearsky) %>% 
-    dplyr::mutate(sol_rad_total_ratio = round(sol_rad_total_ratio, digits = 4))
+    dplyr::mutate(sol_rad_total_ratio = round(sol_rad_total_ratio, digits = 4)) %>% 
+    # To clean up after `dplyr::left_join` and new variables for download file
+    dplyr::rename(meta_station_id = meta_station_id.x) %>%
+    dplyr::select( 
+      "meta_needs_review", 
+      "meta_station_elevation",
+      "meta_station_id", 
+      "meta_station_latitude",
+      "meta_station_name", 
+      "meta_version", 
+      "date_doy", 
+      "date_year", 
+      "datetime",
+      "sol_rad_total",
+      "sol_rad_total_clearsky",
+      "sol_rad_total_ratio"
+    )
 
   return(dataELT)
 }
