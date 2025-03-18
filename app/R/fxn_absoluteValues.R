@@ -107,6 +107,17 @@ fxn_absoluteValues <- function(inData, azmetStation) {
     ) %>%
     
     plotly::layout(
+      font = list(
+        color = "#191919",
+        family = "proxima-nova, calibri, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+        size = 13
+      ),
+      hoverlabel = list(
+        font = list(
+          family = "proxima-nova, calibri, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          size = 13
+        )
+      ),
       legend = list(
         orientation = "h",
         traceorder = "reversed",
