@@ -115,7 +115,7 @@ fxn_absoluteValues <- function(inData, azmetStation) {
       hoverlabel = list(
         font = list(
           family = "proxima-nova, calibri, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-          size = 13
+          size = 14
         )
       ),
       legend = list(
@@ -131,7 +131,7 @@ fxn_absoluteValues <- function(inData, azmetStation) {
       margin = list(
         l = 0,
         r = 50, # For space between plot and modebar
-        b = 80, # For space between x-axis title and caption or figure help text
+        b = 70, # For space between x-axis title and caption or figure help text
         t = 0,
         pad = 0
       ),
@@ -141,7 +141,7 @@ fxn_absoluteValues <- function(inData, azmetStation) {
       ),
       xaxis = list(
         title = list(
-          font = list(size = 13),
+          font = list(size = 14),
           standoff = 25,
           text = "Day of Year"
         ),
@@ -149,7 +149,7 @@ fxn_absoluteValues <- function(inData, azmetStation) {
       ),
       yaxis = list(
         title = list(
-          font = list(size = 13),
+          font = list(size = 14),
           standoff = 25,
           text = "Total Solar Radiation (MJ/m^2)"
         ),
