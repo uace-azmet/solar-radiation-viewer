@@ -64,7 +64,9 @@ fxn_pageBottomText <- function() {
           htmltools::br(), htmltools::br(),
           "For information on how this webpage is put together, please visit the ", webpageCode, " for this tool."
         )
-      )
+      ),
+      
+      class = "page-bottom-text"
     )
   
   return(pageBottomText)
